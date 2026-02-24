@@ -1,0 +1,13 @@
+/target
+.DS_Store
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Local artifacts from prior C/reference inspections
+src_c/
+ref_v030/
+testdata/
