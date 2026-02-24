@@ -51,9 +51,19 @@ jobs:
           mkdir -p dist
           cp "target/${TARGET}/release/methfast" dist/
           cp README.md dist/
-          cp LICENSE dist/
+          if [ -f LICENSE ]; then
+            cp LICENSE dist/
+          elif [ -f LICENSE.txt ]; then
+            cp LICENSE.txt dist/
+          fi
           ARCHIVE="methfast-${TAG}-${TARGET}.${EXT}"
-          tar -C dist -czf "${ARCHIVE}" methfast README.md LICENSE
+          FILES="methfast README.md"
+          if [ -f dist/LICENSE ]; then
+            FILES="${FILES} LICENSE"
+          elif [ -f dist/LICENSE.txt ]; then
+            FILES="${FILES} LICENSE.txt"
+          fi
+          tar -C dist -czf "${ARCHIVE}" ${FILES}
           echo "ARCHIVE=${ARCHIVE}" >> "$GITHUB_ENV"
 
       - name: Publish GitHub release asset
